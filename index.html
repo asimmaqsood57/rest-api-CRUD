@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>data</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <script>
+    const postData = () => {
+      const name = document.getElementById("name").value;
+
+      const email = document.getElementById("email").value;
+
+      const age = document.getElementById("age").value;
+
+      const intAge = parseInt(age);
+
+      const phone = document.getElementById("phone").value;
+      const intPhone = Number(phone);
+
+      console.log(name, email, intAge, intPhone);
+
+      const resp = fetch("http://localhost:3001/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          age: intAge,
+          phone: intPhone,
+        }),
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .then((data) => {
+          console.log(data);
+        });
+    };
+
+    // postData();
+  </script>
+
+  <body>
+    <div class="container">
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          aria-describedby="emailHelp"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          aria-describedby="emailHelp"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Age</label>
+        <input
+          type="text"
+          class="form-control"
+          id="age"
+          aria-describedby="emailHelp"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Phone No.</label>
+        <input
+          type="text"
+          class="form-control"
+          id="phone"
+          aria-describedby="emailHelp"
+        />
+      </div>
+
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div>
+      <button onclick="postData()" class="btn btn-primary">Submit</button>
+    </div>
+  </body>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+    crossorigin="anonymous"
+  ></script>
+</html>
