@@ -72,6 +72,18 @@
       }
     };
 
+    const deleteData = async (id) => {
+      const dataDeleted = await fetch(`http://localhost:3001/user/${id}`, {
+        method: "delete",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      location.reload();
+
+      console.log(dataDeleted);
+    };
     async function renderUsers() {
       let users = await fetchData();
       let html = "";
@@ -79,8 +91,11 @@
         let htmlSegment = `    <tr>
       <td>${user.name}</td>
       <td>${user.email}</td>
-      <td>${user.age}</td>
-    </tr>`;
+      <td>${user.age} </td>
+      <td><button class="btn btn-primary" onclick(editData("${user._id}"))>Edit</button></td>
+     <td><button onclick="deleteData('${user._id}')" class="btn btn-danger">Delete</button>
+</td> 
+      </tr>`;
 
         html += htmlSegment;
       });
@@ -101,6 +116,8 @@
           <th scope="col">Name</th>
           <th scope="col">email</th>
           <th scope="col">age</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
         </tr>
       </thead>
       <tbody id="data"></tbody>
