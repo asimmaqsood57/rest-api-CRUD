@@ -50,6 +50,10 @@
         .catch((err) => {
           console.log(err);
         });
+
+      if (resp) {
+        renderUsers();
+      }
     };
 
     const fetchData = async () => {
@@ -73,29 +77,32 @@
     };
 
     const deleteData = async (id) => {
-      const dataDeleted = await fetch(`http://localhost:3001/user/${id}`, {
-        method: "delete",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      if (window.confirm("Do you want to delete it?")) {
+        const dataDeleted = await fetch(`http://localhost:3001/user/${id}`, {
+          method: "delete",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
-      location.reload();
-
-      console.log(dataDeleted);
+        if (dataDeleted) {
+          renderUsers();
+        }
+        console.log(dataDeleted);
+      }
     };
     async function renderUsers() {
       let users = await fetchData();
       let html = "";
       users.forEach((user) => {
         let htmlSegment = `    <tr>
-      <td>${user.name}</td>
-      <td>${user.email}</td>
-      <td>${user.age} </td>
-      <td><button class="btn btn-primary" onclick(editData("${user._id}"))>Edit</button></td>
-     <td><button onclick="deleteData('${user._id}')" class="btn btn-danger">Delete</button>
-</td> 
-      </tr>`;
+          <td>${user.name}</td>
+          <td>${user.email}</td>
+          <td>${user.age} </td>
+          <td><button class="btn btn-primary" onclick(editData("${user._id}"))>Edit</button></td>
+         <td><button onclick="deleteData('${user._id}')" class="btn btn-danger">Delete</button>
+    </td>
+          </tr>`;
 
         html += htmlSegment;
       });
