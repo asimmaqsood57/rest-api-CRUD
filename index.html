@@ -46,13 +46,58 @@
         })
         .then((data) => {
           console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
         });
     };
+
+    const fetchData = async () => {
+      console.log("getting data");
+
+      try {
+        const respo = await fetch("http://localhost:3001/user", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const data = await respo.json();
+        console.log(data);
+
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    async function renderUsers() {
+      let users = await fetchData();
+      let html = "";
+      users.forEach((user) => {
+        let htmlSegment = `<div class="user">
+                            <h2>${user.name} </h2>
+                            <div class="email"><a href="email:${user.email}">${user.email}</a></div>
+                        </div>`;
+
+        html += htmlSegment;
+      });
+
+      let container = document.getElementById("data");
+      container.innerHTML = html;
+    }
+
+    renderUsers();
 
     // postData();
   </script>
 
   <body>
+    <div class="container">
+      <div id="data"></div>
+    </div>
+
     <div class="container">
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Name</label>
