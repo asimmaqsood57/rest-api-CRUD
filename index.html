@@ -76,10 +76,11 @@
       let users = await fetchData();
       let html = "";
       users.forEach((user) => {
-        let htmlSegment = `<div class="user">
-                            <h2>${user.name} </h2>
-                            <div class="email"><a href="email:${user.email}">${user.email}</a></div>
-                        </div>`;
+        let htmlSegment = `    <tr>
+      <td>${user.name}</td>
+      <td>${user.email}</td>
+      <td>${user.age}</td>
+    </tr>`;
 
         html += htmlSegment;
       });
@@ -94,9 +95,16 @@
   </script>
 
   <body>
-    <div class="container">
-      <div id="data"></div>
-    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">email</th>
+          <th scope="col">age</th>
+        </tr>
+      </thead>
+      <tbody id="data"></tbody>
+    </table>
 
     <div class="container">
       <div class="mb-3">
