@@ -70,11 +70,11 @@ app.get("/user", async (req, res) => {
     res.status(400).send(error);
   }
 });
-app.patch("/user/:id", async (req, res) => {
+app.put("/user/:id", async (req, res) => {
   try {
     const _id = req.params.id;
 
-    const resp = await Users.findByIdAndUpdate(_id, { name: "Amir Malik" });
+    const resp = await Users.findByIdAndUpdate(_id, req.body);
     console.log(resp);
     res.status(200).send(resp);
   } catch (error) {
